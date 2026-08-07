@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 
 public class LoginTest extends BaseTest {
 
+    //Login test implementation
     @Test
     public void verifyGoogleTitle() {
 
