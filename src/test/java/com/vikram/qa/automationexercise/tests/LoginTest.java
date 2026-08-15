@@ -1,22 +1,44 @@
-package com.vikram.qa.automationexercise.tests;
+package automationexercise.tests;
 
-import automationexercise.core.DriverManager;
-import com.vikram.qa.automationexercise.base.BaseTest;
+import automationexercise.annotations.SkipLogin;
+import automationexercise.base.BaseTest;
+import automationexercise.components.CookieBanner;
+import automationexercise.pages.HomePage;
+import automationexercise.pages.LoginPage;
+
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+@SkipLogin
 public class LoginTest extends BaseTest {
 
-    //Login test implementation
+    private LoginPage loginPage;
+    private CookieBanner cookieBannerObj;
+    private HomePage homePage;
+
+    @BeforeMethod
+    public void initializePages() {
+        cookieBannerObj=pages.getCookieBannerObject();
+        loginPage = pages.getLoginPage();
+    }
+
     @Test
-    public void verifyGoogleTitle() {
-
-        DriverManager.getDriver().get("https://google.com");
-
-        String title = DriverManager.getDriver().getTitle();
-
-        Assert.assertEquals(title,"Google");
+    public void verifyValidLogin() {
+        cookieBannerObj.clickConsentButton();
+        loginPage.enterUsername("vikramtest@email.com");
+        loginPage.enterPassword("Automation@123");
+        homePage = loginPage.clickLoginBtn();
+        Assert.assertTrue(homePage.isUserLoggedIn(), "User login was not successful");
 
     }
 
+    @Test
+    public void verifyInvalidLogin() {
+        cookieBannerObj.clickConsentButton();
+        loginPage.enterUsername("wrongUser@email.com");
+        loginPage.enterPassword("wrongPassword");
+        homePage = loginPage.clickLoginBtn();
+        Assert.assertEquals(homePage.getLoginFailureMessage(),"Your email or password is incorrect!");
+    }
 }
