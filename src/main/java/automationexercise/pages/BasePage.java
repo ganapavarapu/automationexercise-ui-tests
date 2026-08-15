@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 public abstract class BasePage {
     protected final WebDriver driver;
@@ -37,5 +38,12 @@ public abstract class BasePage {
 
     protected boolean isDisplayed(By locator) {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator)).isDisplayed();
+    }
+
+    protected boolean isDisplayedIfPresent(By locator) {
+        List<WebElement> elements =
+                DriverManager.getDriver().findElements(locator);
+
+        return !elements.isEmpty() && elements.get(0).isDisplayed();
     }
 }

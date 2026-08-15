@@ -1,8 +1,10 @@
 package automationexercise.components;
 
+import automationexercise.core.DriverManager;
 import automationexercise.pages.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class CookieBanner extends BasePage {
 
@@ -13,8 +15,11 @@ public class CookieBanner extends BasePage {
         super(driver);
     }
 
-    public void clickConsentButton(){
-        click(consentButton);
+
+    public void acceptIfPresent() {
+        if (isDisplayedIfPresent(consentButton)) {
+            click(consentButton);
+        }
     }
 
 }

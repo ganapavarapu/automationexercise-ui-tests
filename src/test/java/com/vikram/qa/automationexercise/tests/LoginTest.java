@@ -25,7 +25,7 @@ public class LoginTest extends BaseTest {
 
     @Test
     public void verifyValidLogin() {
-        cookieBannerObj.clickConsentButton();
+        cookieBannerObj.acceptIfPresent();
         loginPage.enterUsername("vikramtest@email.com");
         loginPage.enterPassword("Automation@123");
         homePage = loginPage.clickLoginBtn();
@@ -35,7 +35,7 @@ public class LoginTest extends BaseTest {
 
     @Test
     public void verifyInvalidLogin() {
-        cookieBannerObj.clickConsentButton();
+        cookieBannerObj.acceptIfPresent();
         loginPage.enterUsername("wrongUser@email.com");
         loginPage.enterPassword("wrongPassword");
         homePage = loginPage.clickLoginBtn();
