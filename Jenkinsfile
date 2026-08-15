@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Run Tests') {
             steps {
-            bat 'mvn clean test'
+            bat 'mvn clean test -Dbrowser=chrome -Dheadless=true -DbaseUrl=https://automationexercise.com'
             }
         }
     }

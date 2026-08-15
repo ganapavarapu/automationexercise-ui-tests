@@ -13,11 +13,9 @@ public class ConfigReader {
                 .getClassLoader()
                 .getResourceAsStream("config.properties")) {
 
-            if (input == null) {
-                throw new RuntimeException("config.properties not found");
+            if (input != null) {
+                properties.load(input);
             }
-
-            properties.load(input);
 
         } catch (IOException e) {
             throw new RuntimeException("Failed to load config.properties", e);
@@ -25,6 +23,11 @@ public class ConfigReader {
     }
 
     public static String getProperty(String key) {
+        String systemProperty = System.getProperty(key);
+
+        if (systemProperty != null && !systemProperty.isBlank()) {
+            return systemProperty;
+        }
         return properties.getProperty(key);
     }
 }
