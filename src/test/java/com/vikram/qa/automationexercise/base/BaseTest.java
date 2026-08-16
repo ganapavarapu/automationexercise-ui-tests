@@ -30,7 +30,8 @@ public abstract class BaseTest {
         DriverFactory.createDriver(browser, headless);
 
         DriverManager.getDriver().get(
-                ConfigReader.getProperty("baseUrl")
+                ConfigReader.getProperty("baseUrl") +
+                        ConfigReader.getProperty("loginPath")
         );
 
         pages = new PageObjectManager(DriverManager.getDriver());
