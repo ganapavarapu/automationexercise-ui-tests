@@ -1,9 +1,7 @@
 package automationexercise.pages;
 
 import automationexercise.core.DriverManager;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -23,7 +21,15 @@ public abstract class BasePage {
     }
 
     protected void click(By locator) {
-        wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
+        WebElement element =
+                wait.until(ExpectedConditions.elementToBeClickable(locator));
+
+        try {
+            element.click();
+        } catch (ElementClickInterceptedException e) {
+            ((JavascriptExecutor) DriverManager.getDriver())
+                    .executeScript("arguments[0].click();", element);
+        }
     }
 
     protected void enterText(By locator, String text) {
