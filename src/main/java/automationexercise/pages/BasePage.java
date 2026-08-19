@@ -26,7 +26,7 @@ public abstract class BasePage {
 
     /**
      * Method to click a WebElement
-     * @param locator
+     * @param locator locator used to find the element
      */
     protected void click(By locator) {
         WebElement element =
@@ -42,7 +42,7 @@ public abstract class BasePage {
 
     /**
      * Method to enter Text for a WebElement
-     * @param locator
+     * @param locator locator used to find the element
      * @param text
      */
     protected void enterText(By locator, String text) {
@@ -53,7 +53,7 @@ public abstract class BasePage {
 
     /**
      * Method to get text of a WebElement
-     * @param locator
+     * @param locator locator used to find the element
      * @return String
      */
     protected String getText(By locator) {
@@ -62,8 +62,8 @@ public abstract class BasePage {
 
     /**
      * Method to verify if a WebElement is displayed
-     * @param locator
-     * @return boolean
+     * @param locator locator used to find the element
+     * @return true if the element is displayed; otherwise false
      */
     protected boolean isDisplayed(By locator) {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator)).isDisplayed();
@@ -71,8 +71,8 @@ public abstract class BasePage {
 
     /**
      * Method to verify a WebElement is displayed if it is present
-     * @param locator
-     * @return boolean
+     * @param locator locator used to find the element
+     * @return true if the element is present and displayed; otherwise false
      */
     protected boolean isDisplayedIfPresent(By locator) {
         List<WebElement> elements =
