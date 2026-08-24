@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent {
+         label 'windows-ui'
+    }
 
      tools {
             allure 'Allure'
@@ -8,7 +10,7 @@ pipeline {
     stages {
         stage('Run Tests') {
             steps {
-            bat 'mvn clean test'
+            bat 'mvn clean test -Dbrowser=chrome -Dheadless=false -DbaseUrl=https://automationexercise.com -DloginPath=/login'
             }
         }
     }

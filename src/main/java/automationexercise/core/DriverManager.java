@@ -1,29 +1,39 @@
 package automationexercise.core;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 
-import java.time.Duration;
+public final class DriverManager {
 
-public class DriverManager {
-    private static WebDriver driver;
+    private static final ThreadLocal<WebDriver> driver =
+            new ThreadLocal<>();
+
+    private DriverManager() {
+    }
+
+    public static void setDriver(WebDriver webDriver) {
+        driver.set(webDriver);
+    }
 
     public static WebDriver getDriver() {
-        if (driver == null) {
-            ChromeOptions options = new ChromeOptions();
-            options.addArguments("--remote-allow-origins=*");  // Still needed
-            driver = new ChromeDriver(options);
-            driver.manage().window().maximize();
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+
+        WebDriver currentDriver = driver.get();
+
+        if (currentDriver == null) {
+            throw new IllegalStateException(
+                    "WebDriver is not initialized. Call createDriver() first."
+            );
         }
-        return driver;
+
+        return currentDriver;
     }
 
     public static void quitDriver() {
-        if (driver != null) {
-            driver.quit();
-            driver = null;
+
+        WebDriver currentDriver = driver.get();
+
+        if (currentDriver != null) {
+            currentDriver.quit();
+            driver.remove();
         }
     }
 }
