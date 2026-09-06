@@ -1,4 +1,4 @@
-package automationexercise.utils;
+package com.vikram.qa.automationexercise.utils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,10 +24,13 @@ public class ConfigReader {
 
     public static String getProperty(String key) {
         String systemProperty = System.getProperty(key);
-
         if (systemProperty != null && !systemProperty.isBlank()) {
             return systemProperty;
         }
-        return properties.getProperty(key);
+        String prop = properties.getProperty(key);
+        if (prop == null) {
+            throw new IllegalStateException("Missing configuration key: " + key);
+        }
+        return prop;
     }
 }
