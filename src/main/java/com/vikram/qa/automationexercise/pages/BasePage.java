@@ -1,6 +1,6 @@
-package automationexercise.pages;
+package com.vikram.qa.automationexercise.pages;
 
-import automationexercise.core.DriverManager;
+import com.vikram.qa.automationexercise.core.DriverManager;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -18,10 +18,7 @@ public abstract class BasePage {
      */
     protected BasePage(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(
-                driver,
-                Duration.ofSeconds(10)
-        );
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
     /**
@@ -29,9 +26,7 @@ public abstract class BasePage {
      * @param locator locator used to find the element
      */
     protected void click(By locator) {
-        WebElement element =
-                wait.until(ExpectedConditions.elementToBeClickable(locator));
-
+        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
         try {
             element.click();
         } catch (ElementClickInterceptedException e) {
@@ -75,8 +70,7 @@ public abstract class BasePage {
      * @return true if the element is present and displayed; otherwise false
      */
     protected boolean isDisplayedIfPresent(By locator) {
-        List<WebElement> elements =
-                DriverManager.getDriver().findElements(locator);
+        List<WebElement> elements = driver.findElements(locator);
 
         return !elements.isEmpty() && elements.get(0).isDisplayed();
     }

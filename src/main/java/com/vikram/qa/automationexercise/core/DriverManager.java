@@ -1,4 +1,4 @@
-package automationexercise.core;
+package com.vikram.qa.automationexercise.core;
 
 import org.openqa.selenium.WebDriver;
 

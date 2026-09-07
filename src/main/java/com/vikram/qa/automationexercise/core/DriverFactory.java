@@ -1,4 +1,4 @@
-package automationexercise.core;
+package com.vikram.qa.automationexercise.core;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -13,14 +13,10 @@ public final class DriverFactory {
     private DriverFactory() {
     }
 
-    public static void createDriver(
-            String browser,
-            boolean headless) {
+    public static void createDriver(String browser, boolean headless) {
 
         if (browser == null || browser.isBlank()) {
-            throw new IllegalArgumentException(
-                    "Browser is not configured."
-            );
+            throw new IllegalArgumentException("Browser is not configured.");
         }
 
         WebDriver webDriver;
@@ -29,55 +25,37 @@ public final class DriverFactory {
 
             case "chrome":
 
-                ChromeOptions chromeOptions =
-                        new ChromeOptions();
-
+                ChromeOptions chromeOptions = new ChromeOptions();
                 if (headless) {
                     chromeOptions.addArguments("--headless=new");
                 }
-
-                webDriver =
-                        new ChromeDriver(chromeOptions);
-
+                webDriver = new ChromeDriver(chromeOptions);
                 break;
 
             case "edge":
 
-                EdgeOptions edgeOptions =
-                        new EdgeOptions();
-
+                EdgeOptions edgeOptions = new EdgeOptions();
                 if (headless) {
                     edgeOptions.addArguments("--headless=new");
                 }
-
-                webDriver =
-                        new EdgeDriver(edgeOptions);
-
+                webDriver = new EdgeDriver(edgeOptions);
                 break;
 
             case "firefox":
 
-                FirefoxOptions firefoxOptions =
-                        new FirefoxOptions();
-
+                FirefoxOptions firefoxOptions = new FirefoxOptions();
                 if (headless) {
                     firefoxOptions.addArguments("--headless");
                 }
-
-                webDriver =
-                        new FirefoxDriver(firefoxOptions);
-
+                webDriver = new FirefoxDriver(firefoxOptions);
                 break;
 
             default:
 
-                throw new IllegalArgumentException(
-                        "Unsupported browser: " + browser
-                );
+                throw new IllegalArgumentException("Unsupported browser: " + browser);
         }
 
         webDriver.manage().window().maximize();
-
         DriverManager.setDriver(webDriver);
     }
 }
